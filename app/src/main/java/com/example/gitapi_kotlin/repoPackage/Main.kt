@@ -1,15 +1,10 @@
 package com.example.gitapi_kotlin.repoPackage
 
-import androidx.recyclerview.widget.RecyclerView
 import com.example.gitapi_kotlin.MainActivity.Companion.repoFullName
 import com.example.gitapi_kotlin.MainActivity.Companion.repoName
-import com.example.gitapi_kotlin.RepoAdapter
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import java.net.URL
-import kotlin.reflect.full.createInstance
-import kotlin.reflect.full.findAnnotation
-import kotlin.reflect.full.memberProperties
 
 fun getData(user: String) = runBlocking{
 
@@ -18,6 +13,9 @@ fun getData(user: String) = runBlocking{
 }
 
 fun getRepo(user:String) = GlobalScope.launch{
+    repoFullName.clear()
+    repoName.clear()
+
     val data = getData(user)
 
     for(i in 0 until data.size){
