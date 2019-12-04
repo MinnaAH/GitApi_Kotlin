@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import org.json.JSONArray
+import com.example.gitapi_kotlin.MainActivity.Companion.repoFullName
+import com.example.gitapi_kotlin.MainActivity.Companion.repoName
 import kotlinx.android.synthetic.main.repo_item.view.*
 
-class RepoAdapter(private val repositories: JSONArray) : RecyclerView.Adapter<RepoAdapter.ViewHolder>() {
+class RepoAdapter() : RecyclerView.Adapter<RepoAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -17,12 +18,13 @@ class RepoAdapter(private val repositories: JSONArray) : RecyclerView.Adapter<Re
         return ViewHolder(view)
     }
 
-    override fun getItemCount(): Int = repositories.length()
+    override fun getItemCount(): Int = repoName.size
 
     override fun onBindViewHolder(holder: RepoAdapter.ViewHolder, position: Int) {
-        val repository = repositories.getJSONObject(position)
-        holder.nameView.text = repository["name"].toString()
+        holder.nameView.text = repoName[position]
     }
+
+
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
@@ -31,7 +33,7 @@ class RepoAdapter(private val repositories: JSONArray) : RecyclerView.Adapter<Re
         init {
             itemView.setOnClickListener {
                 val intent = Intent(view.context, CommitActivity::class.java)
-                intent.putExtra("repository", repositories[adapterPosition].toString())
+                intent.putExtra("repository", repoFullName[adapterPosition])
                 view.context.startActivity(intent)
             }
         }

@@ -5,34 +5,20 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.android.volley.Request
-import com.android.volley.Response
-import com.android.volley.toolbox.JsonArrayRequest
-import com.android.volley.toolbox.Volley
+import com.example.gitapi_kotlin.repoPackage.getRepo
 import kotlinx.android.synthetic.main.activity_main.*
-import org.json.JSONArray
+import kotlinx.android.synthetic.main.activity_main.recyclerView
 
 class MainActivity : AppCompatActivity() {
-
+    companion object{
+        var repoName =  ArrayList<String>()
+        var repoFullName =  ArrayList<String>()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         recyclerView.layoutManager = LinearLayoutManager(this)
-    }
 
-    fun getRepo(user: String){
-        val queue = Volley.newRequestQueue(this)
-        val url = "https://api.github.com/users/"+user+"/repos"
-
-        val jsonArrayRequest = JsonArrayRequest(Request.Method.GET, url, null, Response.Listener<JSONArray> {
-            response ->
-            recyclerView.adapter = RepoAdapter(response)
-        },
-        Response.ErrorListener { error ->
-            Log.d("JSON Error",error.toString()) }
-        )
-        queue.add(jsonArrayRequest)
     }
 
     fun userRepos(view: View){
@@ -42,7 +28,10 @@ class MainActivity : AppCompatActivity() {
             Log.d("Username error:", user)
         }
         else{
-            getRepo(user)
+            var job = getRepo(user)
+            while(job.isActive) println("active: " + job.isActive)
+            //for(i in repoName) println("globaali repo array " + i)
+            recyclerView.adapter = RepoAdapter()
         }
     }
 }
