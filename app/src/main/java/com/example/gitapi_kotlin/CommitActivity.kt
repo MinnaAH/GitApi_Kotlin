@@ -21,7 +21,6 @@ class CommitActivity : AppCompatActivity() {
         setContentView(R.layout.commit_activity)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-
         repoCommits()
     }
 
@@ -31,8 +30,11 @@ class CommitActivity : AppCompatActivity() {
             val dataString = data!!.getString("repository")
             if (dataString != null) {
                 var job = getCommits(dataString)
-                while(job.isActive) println(job.isActive)
+
+                while(job.isActive){}
+
                 recyclerView.adapter = CommitAdapter()
+
             }
         }
     }

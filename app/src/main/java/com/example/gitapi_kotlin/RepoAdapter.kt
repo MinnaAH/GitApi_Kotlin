@@ -20,16 +20,17 @@ class RepoAdapter() : RecyclerView.Adapter<RepoAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = repoName.size
 
+    //Insert repo data from arrays to repo_item
     override fun onBindViewHolder(holder: RepoAdapter.ViewHolder, position: Int) {
         holder.nameView.text = repoName[position]
     }
 
-
-
-
+    //ViewHolder inner class
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         val nameView: TextView = view.repoName
 
+        //OnClick listener
+        //Export item's full_name
         init {
             itemView.setOnClickListener {
                 val intent = Intent(view.context, CommitActivity::class.java)

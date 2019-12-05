@@ -8,18 +8,19 @@ import com.example.gitapi_kotlin.CommitActivity.Companion.avatar
 import com.example.gitapi_kotlin.CommitActivity.Companion.date
 import com.example.gitapi_kotlin.CommitActivity.Companion.message
 import java.io.FileNotFoundException
-import java.lang.Exception
 
+
+//Get commit data
 fun getData(user: String): Array<Response> {
     return try{
         val response = URL("https://api.github.com/repos/"+user+"/commits").readText()
         Gson().fromJson(response, Array<Response>::class.java)
     }catch (e: FileNotFoundException){
-        //Toast/alert: file not found
         return arrayOf(Response())
     }
 }
 
+//Iterate commit data and add to global arrays
 fun getCommits(user: String) = GlobalScope.launch{
     authorName.clear()
     date.clear()
@@ -37,7 +38,7 @@ fun getCommits(user: String) = GlobalScope.launch{
         }
     }
     else{
-        for(i in 0..data.size){
+        for(i in 0 until data.size){
             authorName.add(data[i].commit?.author?.name.toString())
             date.add(data[i].commit?.author?.date.toString())
             avatar.add(data[i].author?.avatarUrl.toString())
