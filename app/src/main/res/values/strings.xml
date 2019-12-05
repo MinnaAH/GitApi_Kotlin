@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GitHub</string>
-    <string name="inputPlaceholder">Enter username</string>
-    <string name="btn">Get repositories</string>
+    <string name="app_name" translatable="false">GitHub</string>
+    <string name="inputPlaceholder" translatable="false">Enter username</string>
+    <string name="btn" translatable="false">Get repositories</string>
 </resources>
